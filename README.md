@@ -88,3 +88,20 @@ This document outlines the blueprint for a 30-student "Synergy Tutor" pilot prog
 7.  **Conduct Teacher Training**:
     *   Schedule a 60-minute Zoom session.
     *   Cover dashboard usage and best practices for prompt hygiene.
+
+## Setup
+
+For installation and configuration, see [docs/SETUP.md](docs/SETUP.md).
+
+## Contributing
+
+Guidelines for contributing can be found in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Additional Documentation
+
+* API reference: [docs/API.md](docs/API.md)
+* Database schema: [docs/DATABASE.md](docs/DATABASE.md)
+
+## License
+
+This project is licensed under the [Apache 2.0](LICENSE) license.
