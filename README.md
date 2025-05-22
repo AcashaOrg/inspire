@@ -70,6 +70,7 @@ This document outlines the blueprint for a 30-student "Synergy Tutor" pilot prog
 1.  **Create Supabase Project**:
     *   Enable Row-Level Security (RLS).
     *   Define `StudentChats` and `TeacherNotes` tables.
+    *   Use the example SQL in `docs/SUPABASE_SQL.md` to create tables, indexes, and RLS policies.
 2.  **Prototype Chat UI**:
     *   Use React or Bubble.
     *   Hook into an `/api/chat` endpoint that streams responses from the OpenAI API.
