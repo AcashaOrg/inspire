@@ -16,6 +16,8 @@ This document details the database schema for the Synergy Tutor pilot, hosted on
     *   `token_count` (INTEGER, Nullable) - Number of tokens in the message (user or AI).
     *   `reading_level` (FLOAT, Nullable) - Calculated reading level for the session/turn.
     *   `topic_code` (TEXT, Nullable) - Code or tag for the primary topic of discussion.
+    *   `grade_level` (INTEGER, Nullable) - Student's grade level at the time of the chat.
+    *   `lesson_id` (UUID, Nullable, Foreign Key to `Lessons` table) - Identifier for the lesson this chat pertains to.
     *   `other_analytics_tags` (JSONB, Nullable) - For any other structured analytics data.
 *   **Row-Level Security (RLS)**:
     *   Students can only access their own chat history.
@@ -34,5 +36,16 @@ This document details the database schema for the Synergy Tutor pilot, hosted on
 *   **Row-Level Security (RLS)**:
     *   Teachers can only access/edit their own notes.
     *   School administrators might have broader access for oversight.
+
+### `Lessons`
+*   **Description**: Stores information about lessons or units of study.
+*   **Columns**:
+    *   `lesson_id` (UUID, Primary Key, Default: `gen_random_uuid()`)
+    *   `lesson_name` (TEXT, Not Null) - Name of the lesson (e.g., "Introduction to Algebra").
+    *   `topic_code` (TEXT, Nullable) - Optional: A general topic code this lesson falls under.
+    *   `grade_level_association` (INTEGER[], Nullable) - Optional: Array of grade levels this lesson is typically for.
+    *   `other_lesson_details` (JSONB, Nullable) - For any other structured lesson data.
+*   **Row-Level Security (RLS)**:
+    *   Typically, lesson plans are readable by all authenticated users (teachers, relevant staff). Specific edit rights might be restricted.
 
 *(Other tables like `Students`, `Teachers`, `Classes`, `ClassEnrollments` would be needed to support the RLS and application logic, typically managed by the SSO integration or Supabase Auth.)*

@@ -13,10 +13,10 @@ This document outlines the blueprint for a 30-student "Synergy Tutor" pilot prog
 *   **Key Fields**: `student_id`, `session_id`, `timestamp`.
 *   **Anonymization**: Data should be stripped of Personally Identifiable Information (PII) before being forwarded to the OpenAI Chat Completions API.
 
-### Analytics Tags
-*   **Requirement**: Implement a background worker to process chat sessions.
-*   **Generated Data**: Columns such as `reading_level`, `topic_code`, `token_count`.
-*   **Method**: Summarize each session using a cost-effective, one-shot GPT-4o call.
+### Analytics Tags & Background Worker
+*   **Requirement**: Implement a background worker to process chat sessions. This worker should run approximately every **10 minutes** using **Supabase Edge Functions** to keep infrastructure serverless and FERPA logs centralized.
+*   **Generated Data**: Columns such as `reading_level`, `topic_code`, `token_count`, and a **rubric vector** (e.g., as a JSONB or ARRAY type like `[reading_score, empathy_score, subject_mastery_score]`).
+*   **Method**: Summarize each session using a cost-effective, one-shot GPT-4o call to generate these analytics tags, including the rubric vector.
 
 ### Privacy Gate
 *   **Requirement**: Store logs in a FERPA-compliant PostgreSQL database (e.g., Supabase or AWS RDS).
@@ -82,6 +82,7 @@ This document outlines the blueprint for a 30-student "Synergy Tutor" pilot prog
 5.  **Create FERPA Policy Document**:
     *   Share with the school administration.
     *   Detail data retention policies, encryption methods, and parent access rights.
+                *   Explicitly define the log retention period (e.g., **2 years**, with an annual purge process).
 6.  **Load Test Accounts**:
     *   Add 30 test student accounts via SSO.
     *   Run a mock lesson to verify that logs are generated and metrics are calculated correctly.
